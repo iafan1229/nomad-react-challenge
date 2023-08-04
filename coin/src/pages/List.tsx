@@ -69,7 +69,7 @@ export default function List() {
 
 	return (
 		<>
-			<h1>Coin List Infinite Scrolling!</h1>
+			<h1>Coin List TOP 30!</h1>
 			<CoinList>
 				{isLoading ? (
 					<div>로딩중입니다</div>
