@@ -75,7 +75,8 @@ a{
 	color:${(props) => props.theme.textColor};
 }
 
-li{
+li, div.title,div.rank,div.supply,div.description {
 	background-color: ${(props) => props.theme.bgColor};
 }
+div.description{line-height:1.4}
 	`;

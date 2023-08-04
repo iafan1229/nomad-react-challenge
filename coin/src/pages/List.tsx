@@ -16,7 +16,7 @@ interface coinName {
 	type: string;
 }
 
-const CoinList = styled.ul`
+export const CoinList = styled.ul`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -77,7 +77,7 @@ export default function List() {
 					array.map((el, idx: number) => {
 						return (
 							<li>
-								<Link to={`${el.id}`}>
+								<Link to={`${el.id}/price`}>
 									<span>
 										<img
 											src={`https://coinicons-api.vercel.app/api/icon/${el.symbol.toLowerCase()}`}

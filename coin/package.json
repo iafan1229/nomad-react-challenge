@@ -50,6 +50,5 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26"
-  },
-  "proxy": "https://api.coinpaprika.com/v1/coins"
+  }
 }
