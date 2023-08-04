@@ -20,6 +20,12 @@ const Btn = styled.button`
 	border-radius: 10px;
 `;
 
+const CoinWrap = styled.div`
+	max-width: 900px;
+	margin: 0 auto;
+	text-align: center;
+`;
+
 const App = () => {
 	const [dark, setDark] = useState(true);
 	return (
@@ -29,7 +35,9 @@ const App = () => {
 					{dark ? <CgSun size={50} color='white' /> : <CiDark size={50} />}
 				</Btn>
 				<GlobalStyle />
-				<Outlet />
+				<CoinWrap>
+					<Outlet />
+				</CoinWrap>
 			</QueryClientProvider>
 		</ThemeProvider>
 	);

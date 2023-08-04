@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../api/axios';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQuery } from '@tanstack/react-query';
@@ -15,11 +16,6 @@ interface coinName {
 	type: string;
 }
 
-const CoinWrap = styled.div`
-	max-width: 900px;
-	margin: 0 auto;
-	text-align: center;
-`;
 const CoinList = styled.ul`
 	display: flex;
 	flex-direction: column;
@@ -57,7 +53,7 @@ const CoinList = styled.ul`
 export default function List() {
 	const [array, setArray] = useState<coinName[]>([]);
 	const coinNames: CoinNamesQueryFn = async () => {
-		const result = await axios.get('https://api.coinpaprika.com/v1/coins');
+		const result = await axios.get('coins');
 		return result.data;
 	};
 	const { data, isLoading } = useQuery({
@@ -72,7 +68,7 @@ export default function List() {
 	}, [data]);
 
 	return (
-		<CoinWrap>
+		<>
 			<h1>Coin List Infinite Scrolling!</h1>
 			<CoinList>
 				{isLoading ? (
@@ -95,6 +91,6 @@ export default function List() {
 					})
 				)}
 			</CoinList>
-		</CoinWrap>
+		</>
 	);
 }
