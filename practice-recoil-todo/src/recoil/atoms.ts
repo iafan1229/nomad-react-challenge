@@ -19,11 +19,27 @@ export const categoryState = atom({
 	effects_UNSTABLE: [persistAtom],
 });
 
+export const numberState = atom<number | undefined>({
+	key: 'numberState',
+	default: 0,
+});
+
 export const toDoSelector = selector({
 	key: 'toDoSelector',
 	get: ({ get }) => {
 		const text = get(textState);
 		const category = get(categoryState);
 		return text.filter((el) => el.category === category);
+	},
+});
+
+export const converterSelector = selector({
+	key: 'converterSelector',
+	get: ({ get }) => {
+		const number = get(numberState);
+		if (typeof number === 'number') {
+			return number / 60;
+		}
+		return undefined;
 	},
 });
