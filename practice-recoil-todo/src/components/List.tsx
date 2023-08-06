@@ -16,27 +16,11 @@ interface ListType {
 }
 
 export default function List({ textArray, setTextArray, idx, el }: ListType) {
-	const handleDoing = (el: string) => {
-		const index = [...textArray].findIndex((ele) => ele.text === el);
-		const copied = [...textArray];
-		copied[index].category = 'DOING';
-
-		setTextArray(copied);
-	};
-
-	const handleDone = (el: string) => {
-		const index = [...textArray].findIndex((ele) => ele.text === el);
-		const copied = [...textArray];
-		copied[index].category = 'DONE';
-
-		setTextArray(copied);
-	};
-
-	const handleTodo = (el: string) => {
+	const handleTodo = (el: string, category: string) => {
 		const index = textArray.findIndex((ele: any) => ele.text === el);
 		if (index !== -1) {
 			const copied = [...textArray];
-			copied[index] = { ...copied[index], category: 'TODO' };
+			copied[index] = { ...copied[index], category };
 			setTextArray(copied);
 		}
 	};
@@ -44,9 +28,9 @@ export default function List({ textArray, setTextArray, idx, el }: ListType) {
 	return (
 		<div key={idx}>
 			<p>{el.text}</p>
-			<button onClick={() => handleTodo(el.text)}>DOING</button>
-			<button onClick={() => handleDoing(el.text)}>DOING</button>
-			<button onClick={() => handleDone(el.text)}>DONE</button>
+			{['TODO', 'DOING', 'DONE'].map((aToDo) => (
+				<button onClick={() => handleTodo(el.text, aToDo)}>{aToDo}</button>
+			))}
 		</div>
 	);
 }
