@@ -49,7 +49,7 @@ function App() {
 	return (
 		<>
 			<div className='toDoList'>
-				<select name='' id='category' onChange={handleSelect}>
+				<select name='' id='category' onChange={handleSelect} value={category}>
 					<option value={categoryType.TODO}>TODO</option>
 					<option value={categoryType.DOING}>DOING</option>
 					<option value={categoryType.DONE}>DONE</option>

@@ -7,10 +7,10 @@ import { converterSelector, numberState } from '../recoil/atoms';
  */
 export default function NumberConverter() {
 	const [change, setChange] = useRecoilState(numberState);
-	const hour = useRecoilValue(converterSelector);
+	const [hour, setHour] = useRecoilState(converterSelector); //첫 요소는 get으로, 두번째 요소는 set property
 	const removeZero = (el: any) => {
 		if (el === '') {
-			return undefined;
+			return '';
 		} else {
 			return +el.replace(/(^0+)/, '');
 		}
@@ -19,7 +19,10 @@ export default function NumberConverter() {
 		const tmp = removeZero(e.target.value);
 		setChange(tmp);
 	};
-	const handleHour = (e: React.ChangeEvent<HTMLInputElement>) => {};
+	const handleHour = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const tmp = removeZero(e.target.value);
+		setHour(tmp);
+	};
 	return (
 		<>
 			<h1>Time Converter</h1>

@@ -19,7 +19,7 @@ export const categoryState = atom({
 	effects_UNSTABLE: [persistAtom],
 });
 
-export const numberState = atom<number | undefined>({
+export const numberState = atom<number | string>({
 	key: 'numberState',
 	default: 0,
 });
@@ -40,6 +40,10 @@ export const converterSelector = selector({
 		if (typeof number === 'number') {
 			return number / 60;
 		}
-		return undefined;
+		return '';
+	},
+	set: ({ set }, newValue) => {
+		const minutes = newValue && +newValue * 60;
+		set(numberState, minutes);
 	},
 });
