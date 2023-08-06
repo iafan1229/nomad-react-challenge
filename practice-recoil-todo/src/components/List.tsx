@@ -1,3 +1,5 @@
+import { categoryType } from '../App';
+
 interface TextType {
 	category: string;
 	text: string;
@@ -28,9 +30,11 @@ export default function List({ textArray, setTextArray, idx, el }: ListType) {
 	return (
 		<div key={idx}>
 			<p>{el.text}</p>
-			{['TODO', 'DOING', 'DONE'].map((aToDo) => (
-				<button onClick={() => handleTodo(el.text, aToDo)}>{aToDo}</button>
-			))}
+			{[categoryType.TODO, categoryType.DOING, categoryType.DONE].map(
+				(aToDo) => (
+					<button onClick={() => handleTodo(el.text, aToDo)}>{aToDo}</button>
+				)
+			)}
 		</div>
 	);
 }

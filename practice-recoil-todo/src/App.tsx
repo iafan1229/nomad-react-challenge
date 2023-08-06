@@ -1,48 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import List from './components/List';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { textState, categoryState, toDoSelector } from './recoil/atoms';
 
-interface textType {
+export interface textType {
 	category: string;
 	text: string;
 	date: Date;
 }
 
+export enum categoryType {
+	'TODO' = 'TODO',
+	'DOING' = 'DOING',
+	'DONE' = 'DONE',
+}
+
 function App() {
-	const [selectValue, setSelectValue] = useState('TODO');
+	const [recoilText, setRecoilText] = useRecoilState(textState);
+	const toDos = useRecoilValue(toDoSelector);
+	const [category, setCategory] = useRecoilState(categoryState);
+
 	const [inputValue, setInputValue] = useState<textType>({
 		category: '',
 		text: '',
 		date: new Date(),
 	});
-	const [textArray, setTextArray] = useState<textType[]>([]);
 
 	const handleChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
-			setTextArray([...textArray, inputValue]);
+			setRecoilText([...recoilText, inputValue]);
 			//초기화
 			setInputValue({ category: '', text: '', date: new Date() });
 		}
 	};
 	const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) =>
-		setSelectValue(e.target.value);
+		setCategory(e.target.value);
 
 	const saveText = (e: React.ChangeEvent<HTMLInputElement>) =>
 		setInputValue({
-			category: selectValue,
+			category,
 			text: e.target.value,
 			date: new Date(),
 		});
 
-	const todoList = textArray.filter((el) => el.category === 'TODO');
-	const doingList = textArray.filter((el) => el.category === 'DOING');
-	const doneList = textArray.filter((el) => el.category === 'DONE');
-
 	return (
 		<>
 			<select name='' id='category' onChange={handleSelect}>
-				<option value='TODO'>TODO</option>
-				<option value='DOING'>DOING</option>
-				<option value='DONE'>DONE</option>
+				<option value={categoryType.TODO}>TODO</option>
+				<option value={categoryType.DOING}>DOING</option>
+				<option value={categoryType.DONE}>DONE</option>
 			</select>
 			<input
 				type='text'
@@ -51,48 +57,49 @@ function App() {
 				value={inputValue.text}
 			/>
 			<div>
-				{selectValue === 'TODO' && (
+				{category === 'TODO' && (
 					<>
 						<p style={{ fontWeight: 'bold' }}>TODO ---------</p>
-						{todoList.map((el, idx) => (
+						{toDos.map((el, idx) => (
 							<List
-								setTextArray={setTextArray}
-								textArray={textArray}
+								setTextArray={setRecoilText}
+								textArray={recoilText}
 								idx={idx}
 								el={el}
-								key={idx} // 각 항목의 고유한 키를 설정해 주세요.
+								key={idx}
 							/>
 						))}
 					</>
 				)}
-				{selectValue === 'DOING' && (
+				{category === 'DOING' && (
 					<>
 						<p style={{ fontWeight: 'bold' }}>DOING ---------</p>
-						{doingList.map((el, idx) => (
+						{toDos.map((el, idx) => (
 							<List
-								setTextArray={setTextArray}
-								textArray={textArray}
+								setTextArray={setRecoilText}
+								textArray={recoilText}
 								idx={idx}
 								el={el}
-								key={idx} // 각 항목의 고유한 키를 설정해 주세요.
+								key={idx}
 							/>
 						))}
 					</>
 				)}
-				{selectValue === 'DONE' && (
+				{category === 'DONE' && (
 					<>
 						<p style={{ fontWeight: 'bold' }}>DONE ---------</p>
-						{doneList.map((el, idx) => (
+						{toDos.map((el, idx) => (
 							<List
-								setTextArray={setTextArray}
-								textArray={textArray}
+								setTextArray={setRecoilText}
+								textArray={recoilText}
 								idx={idx}
 								el={el}
-								key={idx} // 각 항목의 고유한 키를 설정해 주세요.
+								key={idx}
 							/>
 						))}
 					</>
 				)}
+				{}
 			</div>
 		</>
 	);
