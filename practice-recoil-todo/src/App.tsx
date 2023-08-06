@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import List from './components/List';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { textState, categoryState, toDoSelector } from './recoil/atoms';
+import NumberConverter from './components/NumberConverter';
 
 export interface textType {
 	category: string;
@@ -45,61 +46,67 @@ function App() {
 
 	return (
 		<>
-			<select name='' id='category' onChange={handleSelect}>
-				<option value={categoryType.TODO}>TODO</option>
-				<option value={categoryType.DOING}>DOING</option>
-				<option value={categoryType.DONE}>DONE</option>
-			</select>
-			<input
-				type='text'
-				onKeyDown={handleChange}
-				onChange={saveText}
-				value={inputValue.text}
-			/>
-			<div>
-				{category === 'TODO' && (
-					<>
-						<p style={{ fontWeight: 'bold' }}>TODO ---------</p>
-						{toDos.map((el, idx) => (
-							<List
-								setTextArray={setRecoilText}
-								textArray={recoilText}
-								idx={idx}
-								el={el}
-								key={idx}
-							/>
-						))}
-					</>
-				)}
-				{category === 'DOING' && (
-					<>
-						<p style={{ fontWeight: 'bold' }}>DOING ---------</p>
-						{toDos.map((el, idx) => (
-							<List
-								setTextArray={setRecoilText}
-								textArray={recoilText}
-								idx={idx}
-								el={el}
-								key={idx}
-							/>
-						))}
-					</>
-				)}
-				{category === 'DONE' && (
-					<>
-						<p style={{ fontWeight: 'bold' }}>DONE ---------</p>
-						{toDos.map((el, idx) => (
-							<List
-								setTextArray={setRecoilText}
-								textArray={recoilText}
-								idx={idx}
-								el={el}
-								key={idx}
-							/>
-						))}
-					</>
-				)}
-				{}
+			<div className='toDoList'>
+				<select name='' id='category' onChange={handleSelect}>
+					<option value={categoryType.TODO}>TODO</option>
+					<option value={categoryType.DOING}>DOING</option>
+					<option value={categoryType.DONE}>DONE</option>
+				</select>
+				<input
+					type='text'
+					onKeyDown={handleChange}
+					onChange={saveText}
+					value={inputValue.text}
+				/>
+				<div>
+					{category === 'TODO' && (
+						<>
+							<p style={{ fontWeight: 'bold' }}>TODO ---------</p>
+							{toDos.map((el, idx) => (
+								<List
+									setTextArray={setRecoilText}
+									textArray={recoilText}
+									idx={idx}
+									el={el}
+									key={idx}
+								/>
+							))}
+						</>
+					)}
+					{category === 'DOING' && (
+						<>
+							<p style={{ fontWeight: 'bold' }}>DOING ---------</p>
+							{toDos.map((el, idx) => (
+								<List
+									setTextArray={setRecoilText}
+									textArray={recoilText}
+									idx={idx}
+									el={el}
+									key={idx}
+								/>
+							))}
+						</>
+					)}
+					{category === 'DONE' && (
+						<>
+							<p style={{ fontWeight: 'bold' }}>DONE ---------</p>
+							{toDos.map((el, idx) => (
+								<List
+									setTextArray={setRecoilText}
+									textArray={recoilText}
+									idx={idx}
+									key={idx}
+									el={el}
+								/>
+							))}
+						</>
+					)}
+					{}
+				</div>
+			</div>
+
+			<div className='numberConverter'>
+				<NumberConverter />
 			</div>
 		</>
 	);
