@@ -1,14 +1,9 @@
 import { categoryType } from '../App';
-
-interface TextType {
-	category: string;
-	text: string;
-	date: Date;
-}
+import { textType, Category } from '../App';
 
 interface ListType {
-	textArray: TextType[];
-	setTextArray: React.Dispatch<React.SetStateAction<TextType[]>>;
+	textArray: textType[];
+	setTextArray: React.Dispatch<React.SetStateAction<textType[]>>;
 	idx: number;
 	el: {
 		category: string;
@@ -18,8 +13,8 @@ interface ListType {
 }
 
 export default function List({ textArray, setTextArray, idx, el }: ListType) {
-	const handleTodo = (el: string, category: string) => {
-		const index = textArray.findIndex((ele: TextType) => ele.text === el);
+	const handleTodo = (el: string, category: Category) => {
+		const index = textArray.findIndex((ele: textType) => ele.text === el);
 		if (index !== -1) {
 			const copied = [...textArray];
 			copied[index] = { ...copied[index], category };
@@ -29,7 +24,7 @@ export default function List({ textArray, setTextArray, idx, el }: ListType) {
 
 	const handleDelete = () => {
 		const copied = [...textArray];
-		const index = textArray.findIndex((ele: TextType) => ele.text === el.text);
+		const index = textArray.findIndex((ele: textType) => ele.text === el.text);
 		copied.splice(index, 1);
 		setTextArray(copied);
 	};

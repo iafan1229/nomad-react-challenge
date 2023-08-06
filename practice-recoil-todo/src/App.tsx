@@ -4,8 +4,10 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { textState, categoryState, toDoSelector } from './recoil/atoms';
 import NumberConverter from './components/NumberConverter';
 
+export type Category = 'TODO' | 'DOING' | 'DONE';
+
 export interface textType {
-	category: string;
+	category: Category;
 	text: string;
 	date: Date;
 }
@@ -22,7 +24,7 @@ function App() {
 	const [category, setCategory] = useRecoilState(categoryState);
 
 	const [inputValue, setInputValue] = useState<textType>({
-		category: '',
+		category: 'TODO',
 		text: '',
 		date: new Date(),
 	});
@@ -31,7 +33,7 @@ function App() {
 		if (e.key === 'Enter') {
 			setRecoilText([...recoilText, inputValue]);
 			//초기화
-			setInputValue({ category: '', text: '', date: new Date() });
+			setInputValue({ category: 'TODO', text: '', date: new Date() });
 		}
 	};
 	const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) =>
