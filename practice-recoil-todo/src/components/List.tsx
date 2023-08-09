@@ -10,9 +10,10 @@ interface ListType {
 		text: string;
 		date: Date;
 	};
+	categoryArray: string[];
 }
 
-export default function List({ textArray, setTextArray, idx, el }: ListType) {
+export default function List({ textArray, setTextArray, idx, el, categoryArray }: ListType) {
 	const handleTodo = (el: string, category: Category) => {
 		const index = textArray.findIndex((ele: textType) => ele.text === el);
 		if (index !== -1) {
@@ -32,7 +33,7 @@ export default function List({ textArray, setTextArray, idx, el }: ListType) {
 	return (
 		<div key={idx}>
 			<p>{el.text}</p>
-			{[categoryType.TODO, categoryType.DOING, categoryType.DONE].map(
+			{categoryArray.map(
 				(aToDo, idx) => (
 					<button key={idx} onClick={() => handleTodo(el.text, aToDo)}>
 						{aToDo}
