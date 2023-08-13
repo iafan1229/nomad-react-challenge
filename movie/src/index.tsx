@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Content from './components/Content';
 import Tv from './pages/Tv';
+import './index.css';
 
 const queryClient = new QueryClient();
 

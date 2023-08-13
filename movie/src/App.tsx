@@ -18,11 +18,11 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
 	return (
-		<>
+		<div style={{ height: '150vh' }}>
 			<GlobalStyle />
 			<Header />
 			<Outlet />
-		</>
+		</div>
 	);
 }
 
