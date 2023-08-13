@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { BiSearchAlt } from 'react-icons/bi';
-import { useScroll, motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const HeaderStyle = styled(motion.header)`
+	height: 10vh;
 	position: fixed;
 	display: flex;
 	justify-content: space-between;
@@ -17,13 +18,6 @@ const HeaderStyle = styled(motion.header)`
 		align-items: center;
 		gap: 30px;
 		li {
-			&:first-child {
-				width: 80px;
-				height: 80px;
-				img {
-					width: 100%;
-				}
-			}
 			a {
 				font-size: 25px;
 				font-weight: bold;
@@ -39,19 +33,18 @@ const Search = styled.div`
 		left: 0;
 	}
 `;
+
 export default function Header() {
 	const { register } = useForm();
-
+	const { scrollY } = useScroll();
+	const backgroundColor = useTransform(
+		scrollY,
+		[0, 300],
+		['rgba(0,0,0,0)', 'rgba(0,0,0,0.8)']
+	);
 	return (
-		<HeaderStyle
-			initial={{ backgroundColor: 'transparent' }}
-			onScroll={{ backgroundColor: 'red' }}>
+		<HeaderStyle style={{ backgroundColor }}>
 			<ul>
-				<li>
-					<Link to='/'>
-						<img src={`${process.env.PUBLIC_URL}/logo.png`} alt='로고'></img>
-					</Link>
-				</li>
 				<li>
 					<Link to='/'>홈</Link>
 				</li>
