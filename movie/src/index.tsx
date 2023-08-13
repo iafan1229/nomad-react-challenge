@@ -1,19 +1,46 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ThemeProvider } from 'styled-components';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Content from './components/Content';
+import Tv from './pages/Tv';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const queryClient = new QueryClient();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+/**
+ * 라우터들이 존재함
+ */
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <App />,
+		children: [
+			{
+				path: '',
+				element: <Content />,
+			},
+			{
+				path: 'tv',
+				element: <Tv />,
+			},
+		],
+	},
+]);
+
+const rootElement = document.getElementById('root');
+
+if (rootElement) {
+	ReactDOM.createRoot(rootElement).render(
+		<ThemeProvider theme={{ color: 'red' }}>
+			<QueryClientProvider client={queryClient}>
+				<RecoilRoot>
+					<RouterProvider router={router} />
+				</RecoilRoot>
+			</QueryClientProvider>
+		</ThemeProvider>
+	);
+} else {
+	console.error("Root element with ID 'root' not found.");
+}
