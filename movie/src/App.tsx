@@ -21,7 +21,9 @@ function App() {
 		<div style={{ height: '150vh' }}>
 			<GlobalStyle />
 			<Header />
-			<Outlet />
+			<Content>
+       <Outlet />
+      </Content>
 		</div>
 	);
 }

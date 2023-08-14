@@ -4,6 +4,6 @@ const ContentStyle = styled.div`
 	padding-top: 10vh;
 `;
 
-export default function Content() {
-	return <ContentStyle>content</ContentStyle>;
+export default function Content({children}:React.PropsWithChildren) {
+	return <ContentStyle>{children}</ContentStyle>;
 }
