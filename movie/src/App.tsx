@@ -20,10 +20,10 @@ function App() {
 	return (
 		<div style={{ height: '150vh' }}>
 			<GlobalStyle />
-			<Header />
 			<Content>
-       <Outlet />
-      </Content>
+				<Header />
+				<Outlet />
+			</Content>
 		</div>
 	);
 }

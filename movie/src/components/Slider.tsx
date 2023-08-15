@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
+import { options } from '../api/api';
 
 const SlideWrap = styled.div`
 	position: relative;
@@ -86,15 +87,6 @@ const boxVariants = {
 		opacity: 0,
 		transition: { duration: 0.5 },
 	}),
-};
-
-const options = {
-	method: 'GET',
-	headers: {
-		accept: 'application/json',
-		Authorization:
-			'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNzkzMzgxNTk4MzUzMmVhMWEyNzZjNzY5Nzg2OTFmMyIsInN1YiI6IjVlZTQzM2JhNWI0ZmVkMDAyMTY0Njg3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mGFW4VPjMiWiRveMguHGbxxRiaYJhQZsyJ50ybDS3rw',
-	},
 };
 
 export default function Slider({ movieData }: { movieData: string }) {
