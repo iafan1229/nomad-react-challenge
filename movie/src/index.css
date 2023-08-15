@@ -6,3 +6,12 @@
 ul {
 	list-style: none;
 }
+body {
+	overflow: hidden;
+}
+
+button {
+	background: transparent;
+	outline: none;
+	border: none;
+}
