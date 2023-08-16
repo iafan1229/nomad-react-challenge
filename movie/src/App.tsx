@@ -1,8 +1,9 @@
-import React from 'react';
-import { createGlobalStyle } from 'styled-components';
-import Header from './components/Header';
-import Content from './components/Content';
-import { Outlet } from 'react-router-dom';
+import React from "react";
+import { createGlobalStyle } from "styled-components";
+import Header from "./components/Header";
+import Content from "./components/Content";
+import { Outlet } from "react-router-dom";
+import Footer from "./components/Footer";
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -17,15 +18,16 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-	return (
-		<div style={{ height: '150vh' }}>
-			<GlobalStyle />
-			<Content>
-				<Header />
-				<Outlet />
-			</Content>
-		</div>
-	);
+  return (
+    <div style={{ height: "150vh" }}>
+      <GlobalStyle />
+      <Content>
+        <Header />
+        <Outlet />
+      </Content>
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
