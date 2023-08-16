@@ -96,7 +96,6 @@ function Popup({
     }
   }, [sendId, title]);
 
-  console.log(iframeObj, screen);
   return (
     <>
       <AnimatePresence>
@@ -106,18 +105,20 @@ function Popup({
             animate={idProp ? "open" : "closed"}
             variants={variants}
           >
-            <iframe
-              width="560"
-              height="315"
-              src={`https://www.youtube.com/embed/${iframeObj?.key}?autoplay=1`}
-              title={iframeObj?.name}
-              allowFullScreen
-            ></iframe>
-            <div className="des">
-              <p>개봉일: {screen.release_date}</p>
-              <p>상영 시간: {screen.runtime}분</p>
-              <p>정보: {screen.overview}</p>
-            </div>
+            <>
+              <iframe
+                width="560"
+                height="315"
+                src={`https://www.youtube.com/embed/${iframeObj?.key}?autoplay=1`}
+                title={iframeObj?.name}
+                allowFullScreen
+              ></iframe>
+              <div className="des">
+                <p>개봉일: {screen.release_date}</p>
+                <p>상영 시간: {screen.runtime}분</p>
+                <p>정보: {screen.overview}</p>
+              </div>
+            </>
             <span className="close" onClick={() => setIdProp(null)}>
               <AiFillCloseCircle />
             </span>

@@ -125,7 +125,6 @@ export default function Slider({
   useEffect(() => {
     setShowingMovieList([...movieList].splice(movieIdx - 1, 6));
   }, [movieList, movieIdx]);
-
   return (
     <SlideWrap>
       <AnimatePresence custom={back}>
