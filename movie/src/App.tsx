@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import Header from "./components/Header";
 import Content from "./components/Content";
@@ -18,12 +18,14 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  const [searchResult, setSearchResult] = useState<any>({});
+  console.log(searchResult);
   return (
     <div style={{ height: "150vh" }}>
       <GlobalStyle />
       <Content>
-        <Header />
-        <Outlet />
+        <Header result={setSearchResult} />
+        <Outlet context={{ searchResult }} />
       </Content>
       <Footer />
     </div>

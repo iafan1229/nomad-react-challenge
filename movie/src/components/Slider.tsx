@@ -92,7 +92,7 @@ export default function Slider({
   movieData,
   title,
 }: {
-  movieData: string;
+  movieData: string | [];
   title: string;
 }) {
   const [movieList, setMovieList] = useState<any>([]);
@@ -111,11 +111,14 @@ export default function Slider({
     setMovieIdx((prevMovieIdx) => (prevMovieIdx <= 1 ? 6 : prevMovieIdx - 1));
   };
 
-  async function getData(api: string) {
-    await fetch(api, options)
-      .then((response) => response.json())
-      .then((response) => setMovieList(response.results))
-      .catch((err) => console.error(err));
+  async function getData(api: string | []) {
+    if (Array.isArray(api)) {
+      setMovieList(api);
+    } else
+      await fetch(api, options)
+        .then((response) => response.json())
+        .then((response) => setMovieList(response.results))
+        .catch((err) => console.error(err));
   }
 
   useEffect(() => {
@@ -142,11 +145,23 @@ export default function Slider({
             return (
               <div className="combine-text">
                 <Box
-                  layoutId={movieData + idx + " "}
+                  layoutId={
+                    Array.isArray(movieData)
+                      ? el.backdrop_path
+                      : movieData + idx + " "
+                  }
                   layout
-                  key={movieData + idx + " "}
+                  key={
+                    Array.isArray(movieData)
+                      ? el.backdrop_path
+                      : movieData + idx + " "
+                  }
                   onClick={() => {
-                    setId(movieData + idx);
+                    setId(
+                      Array.isArray(movieData)
+                        ? el.backdrop_path
+                        : movieData + idx
+                    );
                     setSendId(el.id);
                   }}
                 >

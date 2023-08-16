@@ -11,6 +11,7 @@ const ModalWrap = styled.div<Props>`
   right: 0;
   bottom: 0;
   width: 100vw;
+  z-index: 1000;
   height: 100vh;
   display: ${({ show }) => (show ? "flex" : "none")};
   background-color: rgba(0, 0, 0, 0.5);

@@ -32,7 +32,7 @@ export default function Latest({ title }: { title: string }) {
 
   async function getTopMovie() {
     const id = await fetch(
-      `https://api.themoviedb.org/3/${title}/popular?language=en-US&page=1`,
+      `https://api.themoviedb.org/3/${title}/popular?language=ko-KR&page=1`,
       options
     )
       .then((res) => res.json())
