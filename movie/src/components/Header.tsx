@@ -5,8 +5,18 @@ import { BiSearchAlt } from "react-icons/bi";
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { SetStateAction, useEffect, useState } from "react";
 import { options } from "../api/api";
+import { useNavigate } from "react-router-dom";
 
 const HeaderStyle = styled(motion.header)`
+  @media screen and (max-width: 500px) {
+    ul {
+      li {
+        a {
+          font-size: 5vw !important;
+        }
+      }
+    }
+  }
   z-index: 10;
   height: 10vh;
   position: fixed;
@@ -46,6 +56,7 @@ const HeaderStyle = styled(motion.header)`
 const Search = styled.div`
   margin-left: 5vw;
   position: relative;
+  min-width: 30px;
   input {
     width: 0;
     color: inherit;
@@ -85,8 +96,9 @@ export default function Header({
 }: {
   result: React.Dispatch<SetStateAction<{}>>;
 }) {
+  const navi = useNavigate();
   const [openSearch, setOpenSearch] = useState(false);
-  const { register, watch, handleSubmit } = useForm();
+  const { register, watch, handleSubmit, reset } = useForm();
   const { scrollY } = useScroll();
   const [keyword, setKeyword] = useState<string>("");
   const [headerIdx, setHeaderIdx] = useState(0);
@@ -104,8 +116,6 @@ export default function Header({
   const watchedValue = watch("search");
 
   async function getData(keyword: string) {
-    console.log(keyword);
-
     try {
       //영화먼저
       const mvResponse = await fetch(
@@ -116,13 +126,13 @@ export default function Header({
 
       //다음tv
       const tvResponse = await fetch(
-        `https://api.themoviedb.org/3/search/tv?query=${keyword}include_adult=false&language=ko-KR&page=1`,
+        `https://api.themoviedb.org/3/search/tv?query=${keyword}&include_adult=false&language=en-US&page=1'`,
         options
       );
       const tvData = await tvResponse.json();
 
-      const mv = await mvData.results;
-      const tv = await tvData?.result;
+      const mv = await mvData?.results;
+      const tv = await tvData?.results;
 
       if (!mv && !tv) return;
       return { movie: mv, tv: tv };
@@ -131,10 +141,15 @@ export default function Header({
       return null;
     }
   }
-
   useEffect(() => {
     if (keyword) {
-      getData(keyword).then((res) => res && result(res));
+      getData(keyword).then((res) => {
+        if (res) {
+          console.log(res);
+          result(res);
+          navi("/search");
+        }
+      });
     }
   }, [keyword]);
   return (
@@ -142,21 +157,31 @@ export default function Header({
       <motion.ul>
         <motion.li
           layoutId="header0"
-          onClick={() => setHeaderIdx(0)}
+          onClick={() => {
+            setHeaderIdx(0);
+            result([]);
+          }}
           className={headerIdx === 0 ? "on" : undefined}
         >
           <Link to="/">홈</Link>
         </motion.li>
         <motion.li
           layoutId="header1"
-          onClick={() => setHeaderIdx(1)}
+          onClick={() => {
+            setHeaderIdx(1);
+            result([]);
+          }}
           className={headerIdx === 1 ? "on" : undefined}
         >
           <Link to="/tv">TV 시리즈</Link>
         </motion.li>
       </motion.ul>
       <Search>
-        <form onSubmit={handleSubmit((data) => setKeyword(data.search))}>
+        <form
+          onSubmit={handleSubmit((data) => {
+            setKeyword(data.search);
+          })}
+        >
           <Input
             type="text"
             {...register("search")}

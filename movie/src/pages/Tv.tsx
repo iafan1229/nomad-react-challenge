@@ -20,12 +20,16 @@ const Wrapper = styled.div`
 
 // render
 function Tv() {
-  const { searchResult } = useOutletContext() as any;
-  const [newData, setNewData] = useState<any>([]);
+  const {
+    searchResult: { tv },
+  } = useOutletContext() as any;
+  const [newData, setNewData] = useState<any[]>([]);
 
   useEffect(() => {
-    setNewData(searchResult);
-  }, [searchResult]);
+    if (!tv) return;
+    setNewData([...tv]);
+  }, [tv?.[0]?.original_title]);
+
   return (
     <Wrapper>
       {Object.keys(newData).length === 0 && (
@@ -47,14 +51,6 @@ function Tv() {
             movieData="https://api.themoviedb.org/3/tv/popular?language=ko-KR&page=1"
           />
         </>
-      )}
-      {newData?.tv?.length ? (
-        <div style={{ paddingTop: "10vh" }}>
-          <h2>TV 검색결과</h2>
-          <Slider title="tv" movieData={newData.tv} />
-        </div>
-      ) : (
-        <></>
       )}
     </Wrapper>
   );

@@ -41,7 +41,7 @@ const SlideWrap = styled.div`
   button {
     position: absolute;
     width: 30px;
-    height: 375px;
+    height: 100%;
     top: 0;
     background: #303030;
     color: #fff;
@@ -59,7 +59,6 @@ const SlideWrap = styled.div`
 `;
 
 const Box = styled(motion.div)`
-  width: 250px;
   background-color: white;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 2px 3px rgba(0, 0, 0, 0.06);
   img {
@@ -92,7 +91,7 @@ export default function Slider({
   movieData,
   title,
 }: {
-  movieData: string | [];
+  movieData: string | any[];
   title: string;
 }) {
   const [movieList, setMovieList] = useState<any>([]);
@@ -111,7 +110,7 @@ export default function Slider({
     setMovieIdx((prevMovieIdx) => (prevMovieIdx <= 1 ? 6 : prevMovieIdx - 1));
   };
 
-  async function getData(api: string | []) {
+  async function getData(api: string | any[]) {
     if (Array.isArray(api)) {
       setMovieList(api);
     } else
@@ -123,7 +122,7 @@ export default function Slider({
 
   useEffect(() => {
     getData(movieData);
-  }, []);
+  }, [movieData?.[0]?.original_title]);
 
   useEffect(() => {
     setShowingMovieList([...movieList].splice(movieIdx - 1, 6));

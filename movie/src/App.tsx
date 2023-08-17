@@ -15,6 +15,11 @@ const GlobalStyle = createGlobalStyle`
     color: #000;
     text-decoration: none;
   }
+  @media screen and (max-width: 500px) {
+    body{
+      padding: 0 5vw;
+    }
+  }
 `;
 
 function App() {

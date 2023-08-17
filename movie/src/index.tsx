@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Movie from "./pages/Movie";
 import Tv from "./pages/Tv";
 import "./index.css";
+import SearchResult from "./pages/SearchResult";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "tv",
         element: <Tv />,
+      },
+      {
+        path: "search",
+        element: <SearchResult />,
       },
     ],
   },

@@ -20,6 +20,11 @@ const ModalWrap = styled.div<Props>`
 `;
 
 const Modal = styled(motion.div)`
+  @media screen and (max-width: 500px) {
+    width: 80vw;
+    height: 50vh;
+    padding: 3vw;
+  }
   z-index: 5;
   position: absolute;
   overflow-y: auto;
@@ -42,6 +47,7 @@ const Modal = styled(motion.div)`
     position: absolute;
     top: 10px;
     right: 10px;
+    z-index: 2000;
     svg {
       width: 40px;
       height: 40px;

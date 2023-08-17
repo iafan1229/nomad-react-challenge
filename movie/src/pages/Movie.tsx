@@ -19,12 +19,16 @@ const Wrapper = styled.div`
 
 // render
 function Movie() {
-  const { searchResult } = useOutletContext() as any;
-  const [newData, setNewData] = useState<any>([]);
+  const {
+    searchResult: { movie },
+  } = useOutletContext() as any;
+  const [newData, setNewData] = useState<any[]>([]);
 
   useEffect(() => {
-    setNewData(searchResult);
-  }, [searchResult]);
+    if (!movie) return;
+    setNewData([...movie]);
+  }, [movie?.[0]?.original_title]);
+
   return (
     <Wrapper>
       {Object.keys(newData).length === 0 && (
@@ -46,14 +50,6 @@ function Movie() {
             movieData="https://api.themoviedb.org/3/movie/upcoming?language=ko-KR&page=1"
           />
         </>
-      )}
-      {newData?.movie?.length ? (
-        <div style={{ paddingTop: "10vh" }}>
-          <h2>영화 검색결과</h2>
-          <Slider title="movie" movieData={newData.movie} />
-        </div>
-      ) : (
-        <></>
       )}
     </Wrapper>
   );
